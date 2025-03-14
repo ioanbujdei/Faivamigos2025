@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 800px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            margin-right: 20px;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .message {
+            color: green;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" class="input-field" required>
+                
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" class="input-field" required>
+                
+                <button type="button" class="btn" onclick="login()">Login</button>
+            </form>
+            <div id="loginMessage" class="message"></div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-container">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label for="registerUsername">Username:</label>
+                <input type="text" id="registerUsername" class="input-field" required>
+                
+                <label for="registerPassword">Password:</label>
+                <input type="password" id="registerPassword" class="input-field" required>
+                
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" class="input-field" required>
+                
+                <button type="button" class="btn" onclick="register()">Register</button>
+            </form>
+            <div id="registerMessage" class="message"></div>
+        </div>
+    </div>
+
+    <script>
+        let users = []; 
+
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                document.getElementById('loginMessage').textContent = "Login successful!";
+                document.getElementById('loginMessage').style.color = "green";
+
+                // Redirect to homepage 
+                setTimeout(function() {
+                    window.location.href = "homepage.html"; // Change to your homepage URL
+                }, 2000);
+            } else {
+                document.getElementById('loginMessage').textContent = "Invalid credentials!";
+                document.getElementById('loginMessage').style.color = "red";
+            }
+        }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (users.some(u => u.username === username)) {
+                document.getElementById('registerMessage').textContent = "Username already taken!";
+                document.getElementById('registerMessage').style.color = "red";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('registerMessage').textContent = "Passwords do not match!";
+                document.getElementById('registerMessage').style.color = "red";
+                return;
+            }
+
+            // Add user to users array (you can save it to a server in real applications)
+            users.push({ username, password });
+
+            document.getElementById('registerMessage').textContent = "Registration successful! You can now log in.";
+            document.getElementById('registerMessage').style.color = "green";
+
+            // Optionally redirect to login page after 2 seconds
+            setTimeout(function() {
+                window.location.href = "#loginForm"; // Or redirect to a login page
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
