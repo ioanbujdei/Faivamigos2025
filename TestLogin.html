@@ -16,8 +16,9 @@
         }
         .container {
             display: flex;
-            justify-content: space-between;
-            width: 800px;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
         }
         .form-container {
             background-color: white;
@@ -25,7 +26,6 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 350px;
-            margin-right: 20px;
         }
         .form-container h2 {
             text-align: center;
@@ -41,26 +41,37 @@
         .btn {
             width: 100%;
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #4989c9;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         .btn:hover {
-            background-color: #45a049;
+            background-color: #0a3b6d;
         }
         .message {
             color: green;
             text-align: center;
             margin-top: 20px;
         }
+        .link {
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            color: #6fc5ff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Login Form -->
-        <div class="form-container">
+        <div class="form-container" id="loginFormContainer">
             <h2>Login</h2>
             <form id="loginForm">
                 <label for="loginUsername">Username:</label>
@@ -72,10 +83,10 @@
                 <button type="button" class="btn" onclick="login()">Login</button>
             </form>
             <div id="loginMessage" class="message"></div>
+            <a href="javascript:void(0)" class="link" onclick="toggleForm('register')">No Account?</a>
         </div>
 
-        <!-- Registration Form -->
-        <div class="form-container">
+        <div class="form-container" id="registerFormContainer" style="display: none;">
             <h2>Register</h2>
             <form id="registerForm">
                 <label for="registerUsername">Username:</label>
@@ -90,11 +101,22 @@
                 <button type="button" class="btn" onclick="register()">Register</button>
             </form>
             <div id="registerMessage" class="message"></div>
+            <a href="javascript:void(0)" class="link" onclick="toggleForm('login')">Already have an account? Login here</a>
         </div>
     </div>
 
     <script>
         let users = []; 
+
+        function toggleForm(formType) {
+            if (formType === 'register') {
+                document.getElementById('loginFormContainer').style.display = 'none';
+                document.getElementById('registerFormContainer').style.display = 'block';
+            } else {
+                document.getElementById('loginFormContainer').style.display = 'block';
+                document.getElementById('registerFormContainer').style.display = 'none';
+            }
+        }
 
         function login() {
             const username = document.getElementById('loginUsername').value;
@@ -108,7 +130,7 @@
 
                 // Redirect to homepage 
                 setTimeout(function() {
-                    window.location.href = "homepage.html"; // Change to your homepage URL
+                    window.location.href = "homepage.html"; 
                 }, 2000);
             } else {
                 document.getElementById('loginMessage').textContent = "Invalid credentials!";
@@ -139,9 +161,8 @@
             document.getElementById('registerMessage').textContent = "Registration successful! You can now log in.";
             document.getElementById('registerMessage').style.color = "green";
 
-            // Optionally redirect to login page after 2 seconds
             setTimeout(function() {
-                window.location.href = "#loginForm"; // Or redirect to a login page
+                toggleForm('login'); 
             }, 2000);
         }
     </script>
