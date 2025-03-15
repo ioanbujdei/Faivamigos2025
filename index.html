@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-  
+
 <div class="container">
   <!-- Left Column: Fixed Menu -->
   <div class="left-column">
@@ -22,24 +22,19 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="notifications.html">Notifications</a></li>
         <li><a href="bookmarks.html">Bookmarks</a></li>
-        <li><a href="profile.html">Profile</a></li>
+        <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
       </ul>
     </div>
   </div>
   
   <!-- Middle Column: Posts -->
   <div class="middle-column">
-    <div class="card">
-      <textarea style="width:100%; height:50px;" placeholder="What's on your mind?"></textarea>
-      <button class="btn">Post</button>
-    </div>
+    <!-- Example Post -->
     <div class="card post">
       <h4>Jane Doe</h4>
       <!-- Add onclick event to the image -->
       <img src="https://picsum.photos/100/100" alt="Logo" onclick="goToAboutPage(this.src)">
       <p>Beautiful view from the mountains!</p>
-      <button class="btn">Like</button>
-      <button class="btn">Comment</button>
     </div>
   </div>
   
@@ -52,11 +47,52 @@
   </div>
 </div>
 
+<!-- Profile Modal -->
+<div id="profileModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeProfileModal()">&times;</span>
+    <h2>Profile</h2>
+    <div class="profile-info">
+      <p><strong>Username:</strong> JaneDoe</p>
+      <p><strong>Email:</strong> jane.doe@example.com</p>
+      <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+</div>
+
 <script>
-    // Function to redirect to about.html with the image URL as a query parameter
-    function goToAboutPage(imageUrl) {
-        window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
-    }
+  // Function to redirect to about.html with the image URL as a query parameter
+  function goToAboutPage(imageUrl) {
+      window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
+  }
+
+  // Function to open the profile modal
+  function openProfileModal() {
+      const modal = document.getElementById('profileModal');
+      modal.style.display = 'flex';
+      modal.classList.add('fadeIn'); // Add fadeIn animation
+  }
+
+  // Function to close the profile modal
+  function closeProfileModal() {
+      const modal = document.getElementById('profileModal');
+      modal.classList.remove('fadeIn'); // Remove fadeIn animation
+      modal.classList.add('fadeOut'); // Add fadeOut animation
+
+      // Wait for the animation to finish before hiding the modal
+      setTimeout(() => {
+          modal.style.display = 'none';
+          modal.classList.remove('fadeOut'); // Remove fadeOut animation
+      }, 300); // Match the duration of the fadeOut animation
+  }
+
+  // Close the modal if the user clicks outside of it
+  window.onclick = function(event) {
+      const modal = document.getElementById('profileModal');
+      if (event.target === modal) {
+          closeProfileModal();
+      }
+  }
 </script>
 
 </body>
