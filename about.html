@@ -21,7 +21,8 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="notifications.html">Notifications</a></li>
                     <li><a href="bookmarks.html">Bookmarks</a></li>
-                    <li><a href="profile.html">Profile</a></li>
+                    <!-- Update the Profile link to open the modal -->
+                    <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
                 </ul>
             </div>
         </div>
@@ -57,8 +58,23 @@
         </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeProfileModal()">&times;</span>
+            <h2>Profile</h2>
+            <div class="profile-info">
+                <p><strong>Username:</strong> JaneDoe</p>
+                <p><strong>Email:</strong> jane.doe@example.com</p>
+                <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the modal.js file -->
+    <script src="modal.js"></script>
+
     <!-- Link to the external JavaScript file -->
     <script src="about.js"></script>
-    
 </body>
 </html>
