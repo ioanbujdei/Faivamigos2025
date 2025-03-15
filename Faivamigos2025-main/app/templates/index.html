@@ -1,117 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Custom Social Media Template</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Social Media Template</title>
     <!-- Link to the CSS file -->
     <link rel="stylesheet" type="text/css" href="../static/index.css">
 </head>
 <body>
 
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 <div class="container">
-  <!-- Left Column: Fixed Menu -->
-  <div class="left-column">
-    <!-- Logo -->
-    <div class="logo">
-      <img src="logo.png" alt="Logo">
+    <!-- Left Column: Fixed Menu -->
+    <div class="left-column">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="../static/logo.png" alt="Logo">
+        </div>
+        <!-- Menu -->
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="bookmarks.html">Bookmarks</a></li>
+                <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
+                <li><button id="loginBtn" class="login-btn">Login</button></li>
+            </ul>
+        </div>
     </div>
-    <!-- Menu -->
-    <div class="menu">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="notifications.html">Notifications</a></li>
-        <li><a href="bookmarks.html">Bookmarks</a></li>
-        <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
-      </ul>
+    
+    <!-- Middle Column: Posts -->
+    <div class="middle-column">
+        <!-- Display Projects Dynamically -->
+        <div class="projects-section">
+            <h3>Projects</h3>
+            {% if projects %}
+                {% for project in projects %}
+                    <div class="card post">
+                        <h4>{{ project.title }}</h4>
+                        <img src="{{ projects.image_path }}" alt="{{ project.title }}" style="width: 100%; max-width: 300px;">
+                        <p>{{ project.description }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No projects found.</p>
+            {% endif %}
+        </div>
     </div>
-  </div>
-  
-  <!-- Middle Column: Posts -->
-  <div class="middle-column">
-    <!-- Example Post -->
-    <div class="card post">
-      <h4>Jane Doe</h4>
-      <!-- Add onclick event to the image -->
-      <img src="https://picsum.photos/100/100" alt="Logo" onclick="goToAboutPage(this.src)">
-      <p>Beautiful view from the mountains!</p>
+    
+    <!-- Right Column: Events -->
+    <div class="right-column">
+        <div class="card">
+            <h3>Upcoming Events</h3>
+            <p>Friday: Hiking Trip</p>
+        </div>
     </div>
-  </div>
-  
-  <!-- Right Column: Events -->
-  <div class="right-column">
-    <div class="card">
-      <h3>Upcoming Events</h3>
-      <p>Friday: Hiking Trip</p>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <h2>Login</h2>
+        <form method="POST" action="/">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+        <div id="loginFeedback" style="margin-top: 10px; color: red;"></div>
+        <p>No account? <a href="javascript:void(0)" onclick="openRegistrationModal()">Register here</a></p>
     </div>
-  </div>
+</div>
+
+<!-- Registration Modal -->
+<div id="registrationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeRegistrationModal()">&times;</span>
+        <h2>Register</h2>
+        <form method="POST" action="/register">
+            <label for="regUsername">Username:</label><br>
+            <input type="text" id="regUsername" name="username" required><br><br>
+            <label for="regEmail">Email:</label><br>
+            <input type="email" id="regEmail" name="email" required><br><br>
+            <label for="regPassword">Password:</label><br>
+            <input type="password" id="regPassword" name="password" required><br><br>
+            <label for="regConfirmPassword">Confirm Password:</label><br>
+            <input type="password" id="regConfirmPassword" name="confirm_password" required><br><br>
+            <button type="submit">Register</button>
+        </form>
+        <div id="registrationFeedback" style="margin-top: 10px; color: red;"></div>
+    </div>
 </div>
 
 <!-- Profile Modal -->
 <div id="profileModal" class="modal" style="display: none;">
-  <div class="modal-content">
-    <span class="close" onclick="closeProfileModal()">&times;</span>
-    <h2>Profile</h2>
-    <div class="profile-info">
-      <p><strong>Username:</strong> JaneDoe</p>
-      <p><strong>Email:</strong> jane.doe@example.com</p>
-      <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <div class="modal-content">
+        <span class="close" onclick="closeProfileModal()">&times;</span>
+        <h2>Profile</h2>
+        <div class="profile-info">
+            <p><strong>Username:</strong> JaneDoe</p>
+            <p><strong>Email:</strong> jane.doe@example.com</p>
+            <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- New Post Button -->
+<!-- New Post Modal -->
 <div id="newPostModal" class="modal">
-  <div class="modal-content">
-      <span id="closeModal" class="close">&times;</span>
-      <h2>Create New Post</h2>
-      <form id="newPostForm">
-          <label for="postTitle">Title</label>
-          <input type="text" id="postTitle" placeholder="Enter title" required>
-
-          <label for="postDescription">Description</label>
-          <textarea id="postDescription" placeholder="Enter description" required></textarea>
-
-          <label for="postImage">Upload Image</label>
-          <input type="file" id="postImage" accept="image/*">
-
-          <button type="submit" id="submitPostBtn">Post</button>
-      </form>
-  </div>
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>Create New Project</h2>
+        <form method="POST" action="/add_project" enctype="multipart/form-data">
+            <label for="postTitle">Title:</label><br>
+            <input type="text" id="postTitle" name="title" required><br><br>
+            <label for="postDescription">Description:</label><br>
+            <textarea id="postDescription" name="description" required></textarea><br><br>
+            <label for="postImage">Upload Image:</label><br>
+            <input type="file" id="postImage" name="image" accept="image/*" required><br><br>
+            <button type="submit">Add Project</button>
+        </form>
+    </div>
 </div>
 <button id="newPostBtn" class="new-post-btn">New Post</button>
 
-
-  <!-- Bookmarks Pop-Up Modal -->
-<div id="bookmarksModal" class="modal">
-  <div class="modal-content">
-      <span id="closeBookmarksModal" class="close">&times;</span>
-      <h2>Bookmarks</h2>
-      <p>Your bookmarked items will appear here.</p>
-      <!-- You can add a list of bookmarks or any other content here -->
-  </div>
-</div>
-
-<!-- Notifications Pop-Up Modal -->
-<div id="notificationsModal" class="modal">
-<div class="modal-content">
-  <span id="closeNotificationsModal" class="close">&times;</span>
-  <h2>Notifications</h2>
-  <p>Your notifications will appear here.</p>
-  <!-- You can add a list of notifications or any other content here -->
-</div>
-</div>
-
 <!-- Include the modal.js file -->
-<script src="modal.js"></script>
+<script src="../static/modal.js"></script>
 
 <script>
-  // Function to redirect to about.html with the image URL as a query parameter
-  function goToAboutPage(imageUrl) {
-      window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
-  }
-  
+    // Function to redirect to about.html with the image URL as a query parameter
+    function goToAboutPage(imageUrl) {
+        window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
+    }
+
+    // Function to open the login modal
+    function openLoginModal() {
+        document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    // Function to close the login modal
+    function closeLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+
+    // Function to open the registration modal
+    function openRegistrationModal() {
+        closeLoginModal(); // Close the login modal
+        document.getElementById('registrationModal').style.display = 'flex';
+    }
+
+    // Function to close the registration modal
+    function closeRegistrationModal() {
+        document.getElementById('registrationModal').style.display = 'none';
+    }
+
+    // Attach event listener to the login button
+    document.getElementById('loginBtn').addEventListener('click', openLoginModal);
+
+    // Close modals when clicking outside the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target === document.getElementById('loginModal')) {
+            closeLoginModal();
+        }
+        if (event.target === document.getElementById('registrationModal')) {
+            closeRegistrationModal();
+        }
+    });
 </script>
+
 <script src="../static/index.js"></script>
 </body>
 </html>

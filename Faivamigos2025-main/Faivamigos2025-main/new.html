@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local CSV Login</title>
+</head>
+<body>
+    <h2>Register</h2>
+    <input type="text" id="regUsername" placeholder="Username">
+    <input type="password" id="regPassword" placeholder="Password">
+    <button onclick="registerUser()">Register</button>
+
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="loginUser()">Login</button>
+
+    <p id="message"></p>
+
+    <script>
+        function registerUser() {
+            let username = document.getElementById("regUsername").value;
+            let password = document.getElementById("regPassword").value;
+
+            if (!username || !password) {
+                document.getElementById("message").innerText = "Please enter a username and password.";
+                return;
+            }
+
+            // Get existing users from LocalStorage
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Check if user already exists
+            if (users.some(user => user.username === username)) {
+                document.getElementById("message").innerText = "User already exists!";
+                return;
+            }
+
+            // Add new user
+            users.push({ username, password });
+            localStorage.setItem("users", JSON.stringify(users));
+
+            document.getElementById("message").innerText = "User registered successfully!";
+        }
+
+        function loginUser() {
+            let username = document.getElementById("loginUsername").value;
+            let password = document.getElementById("loginPassword").value;
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+
+            let user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                document.getElementById("message").innerText = "Login successful!";
+            } else {
+                document.getElementById("message").innerText = "Invalid username or password.";
+            }
+        }
+    </script>
+</body>
+</html>

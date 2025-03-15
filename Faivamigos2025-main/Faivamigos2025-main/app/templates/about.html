@@ -5,22 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suggestion Page</title>
     <link rel="stylesheet" href="../static/about.css">
-    <link rel="stylesheet" type="text/css" href="../static/index.css">
 </head>
 <body>
+
     <div class="container">
         <!-- Left Column: Fixed Menu -->
         <div class="left-column">
             <!-- Logo -->
             <div class="logo">
-                <img src="../static/logo.png" alt="Logo">
+                <img src="logo.png" alt="Logo">
             </div>
             <!-- Menu -->
             <div class="menu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="javascript:void(0)" onclick="openNotificationsModal()">Notifications</a></li>
-                    <li><a href="javascript:void(0)" onclick="openBookmarksModal()">Bookmarks</a></li>
+                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="bookmarks.html">Bookmarks</a></li>
+                    <!-- Update the Profile link to open the modal -->
                     <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
                 </ul>
             </div>
@@ -30,14 +31,18 @@
         <div class="main-content">
             <h1>Suggestion #1</h1>
             <img src="https://picsum.photos/300/200" alt="Random Placeholder Image">
+            
+            <!-- Always show the full description -->
             <div class="full-description">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac ligula in felis pharetra congue. Suspendisse potenti. Duis quis turpis eget lorem fringilla interdum. Donec sed justo non purus cursus gravida et et metus. Aenean ac risus eu nisl suscipit gravida ac vitae lorem.</p>
             </div>
+        
             <div class="vote-container">
                 <button id="upvoteBtn" class="vote-button upvote">⬆</button>
                 <div id="voteCount">0</div>
                 <button id="downvoteBtn" class="vote-button downvote">⬇</button>
             </div>
+        
             <div class="comment-section">
                 <h3>Comments</h3>
                 <textarea id="commentInput" placeholder="Write a comment..."></textarea>
@@ -66,27 +71,10 @@
         </div>
     </div>
 
-    <!-- Bookmarks Modal -->
-    <div id="bookmarksModal" class="modal">
-        <div class="modal-content">
-            <span id="closeBookmarksModal" class="close">&times;</span>
-            <h2>Bookmarks</h2>
-            <p>Your bookmarked items will appear here.</p>
-        </div>
-    </div>
-
-    <!-- Notifications Modal -->
-    <div id="notificationsModal" class="modal">
-        <div class="modal-content">
-            <span id="closeNotificationsModal" class="close">&times;</span>
-            <h2>Notifications</h2>
-            <p>Your notifications will appear here.</p>
-        </div>
-    </div>
-
-    <!-- Include JavaScript Files -->
+    <!-- Include the modal.js file -->
     <script src="../static/modal.js"></script>
+
+    <!-- Link to the external JavaScript file -->
     <script src="../static/index.js"></script>
-    
 </body>
 </html>

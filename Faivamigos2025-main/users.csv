@@ -1,8 +1,2 @@
-username,password
-admin,password123
-user,mypassword
-john,securepassword
-lucas,12345
-andreea,123456
-anamaria,1234567
-maria,andreea1234
+name,password,email
+lucas,123456,lucas@gmail.com

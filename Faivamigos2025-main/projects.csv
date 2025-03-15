@@ -1,4 +1,3 @@
 title,description,image_path
-parc nou,parc in soarelui,static/uploads\treasure_map.jpg
-trotuar nou,multa iarba verde,static/uploads\trotar.jpeg
-parc nou in tm,parc in centru,static/uploads\trotar.jpeg
+Project 1,This is the first project,../static/uploads/trotar.jpeg
+Project 2,This is the second project,../static/images/another_image.jpeg

@@ -25,6 +25,3 @@ window.onclick = function(event) {
         closeProfileModal();
     }
 }
-
-
-

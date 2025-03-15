@@ -16,17 +16,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Ensure the upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Ensure CSV files exist with headers
-if not os.path.exists(USERS_CSV):
-    with open(USERS_CSV, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(['username', 'password', 'email'])
-
-if not os.path.exists(PROJECTS_CSV):
-    with open(PROJECTS_CSV, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(['title', 'description', 'image_path'])
-
 @app.route('/')
 def home():
     # Fetch projects from the CSV file
@@ -40,17 +29,14 @@ def home():
                     projects.append({
                         'title': row[0],
                         'description': row[1],
-                        'image_path': f"../static/{row[2]}"  # Ensure the path is correct for HTML
+                        'image_path': row[2]
                     })
     except FileNotFoundError:
         flash("No projects found.", "info")
 
-    # Debugging: Print projects to the console
-    print("Projects fetched from CSV:", projects)
-
     return render_template('index.html', projects=projects)
 
-@app.route('/login', methods=['POST'])
+@app.route('/', methods=['POST'])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -59,27 +45,25 @@ def login():
     try:
         with open(USERS_CSV, mode='r', newline='', encoding='utf-8') as file:
             reader = csv.reader(file)
-            next(reader)  # Skip the header row
+            
+            # Skip the header row
+            next(reader)
 
             # Iterate through rows and check for a match
             for row in reader:
                 if len(row) >= 2 and row[0] == username and row[1] == password:
-                    flash("Login successful!", "success")
-                    return redirect(url_for('home'))
+                    return f"Welcome, {username}!"  # Successful login
     except FileNotFoundError:
-        flash("User database not found. Please contact the administrator.", "error")
-        return redirect(url_for('home'))
+        return "User database not found. Please contact the administrator."
 
     # If no match is found
-    flash("Invalid username or password, please try again.", "error")
-    return redirect(url_for('home'))
+    return "Invalid username or password, please try again."
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        email = request.form.get('email')
 
         # Check if the username already exists
         try:
@@ -95,10 +79,10 @@ def register():
         # Append the new user to the CSV file on a new line
         with open(USERS_CSV, mode='a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow([username, password, email])  # This ensures a new line is added
+            writer.writerow([username, password])  # This ensures a new line is added
 
         flash("Registration successful! You can now log in.", "success")
-        return redirect(url_for('home'))  # Redirect to the home page after successful registration
+        return redirect(url_for('home'))  # Redirect to the login page after successful registration
 
     return render_template('index.html')  # Render the registration form (if GET request)
 
@@ -111,8 +95,8 @@ def add_project():
 
         # Save the uploaded image
         if image:
-            image_path = os.path.join('uploads', image.filename)  # Relative path for HTML
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], image.filename))
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
+            image.save(image_path)
         else:
             flash("No image uploaded. Please upload an image.", "error")
             return redirect(url_for('home'))
