@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggestion Page</title>
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Column: Fixed Menu -->
+        <div class="left-column">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <!-- Menu -->
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="notifications.html">Notifications</a></li>
+                    <li><a href="bookmarks.html">Bookmarks</a></li>
+                    <!-- Update the Profile link to open the modal -->
+                    <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Suggestion #1</h1>
+            <img src="https://picsum.photos/300/200" alt="Random Placeholder Image">
+            
+            <!-- Always show the full description -->
+            <div class="full-description">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac ligula in felis pharetra congue. Suspendisse potenti. Duis quis turpis eget lorem fringilla interdum. Donec sed justo non purus cursus gravida et et metus. Aenean ac risus eu nisl suscipit gravida ac vitae lorem.</p>
+            </div>
+        
+            <div class="vote-container">
+                <button id="upvoteBtn" class="vote-button upvote">⬆</button>
+                <div id="voteCount">0</div>
+                <button id="downvoteBtn" class="vote-button downvote">⬇</button>
+            </div>
+        
+            <div class="comment-section">
+                <h3>Comments</h3>
+                <textarea id="commentInput" placeholder="Write a comment..."></textarea>
+                <button id="postCommentBtn">Post Comment</button>
+                <div id="commentList"></div>
+            </div>
+        </div>
+
+        <!-- Popular Projects Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <h2>Popular Projects</h2>
+            <div id="projectsContainer"></div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeProfileModal()">&times;</span>
+            <h2>Profile</h2>
+            <div class="profile-info">
+                <p><strong>Username:</strong> JaneDoe</p>
+                <p><strong>Email:</strong> jane.doe@example.com</p>
+                <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the modal.js file -->
+    <script src="modal.js"></script>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="index.js"></script>
+</body>
+</html>
