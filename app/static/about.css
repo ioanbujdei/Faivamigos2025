@@ -140,13 +140,22 @@ a:hover {
     margin: 20px 0;
 }
 
+/* Vote Button Styles */
 .vote-button {
     cursor: pointer;
     border: none;
     background: none;
     font-size: 24px;
-    color: #7f8c8d;
+    color: #7f8c8d; /* Default color */
     transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.vote-button.active.upvote {
+    color: #27ae60; /* Green for upvote */
+}
+
+.vote-button.active.downvote {
+    color: #e74c3c; /* Red for downvote */
 }
 
 .vote-button:hover {
@@ -154,11 +163,11 @@ a:hover {
 }
 
 .vote-button.upvote:hover {
-    color: #27ae60;
+    color: #27ae60; /* Green on hover */
 }
 
 .vote-button.downvote:hover {
-    color: #e74c3c;
+    color: #e74c3c; /* Red on hover */
 }
 
 #voteCount {
