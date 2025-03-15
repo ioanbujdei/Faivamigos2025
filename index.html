@@ -60,6 +60,48 @@
   </div>
 </div>
 
+<!-- New Post Button -->
+<div id="newPostModal" class="modal">
+  <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Create New Post</h2>
+      <form id="newPostForm">
+          <label for="postTitle">Title</label>
+          <input type="text" id="postTitle" placeholder="Enter title" required>
+
+          <label for="postDescription">Description</label>
+          <textarea id="postDescription" placeholder="Enter description" required></textarea>
+
+          <label for="postImage">Upload Image</label>
+          <input type="file" id="postImage" accept="image/*">
+
+          <button type="submit" id="submitPostBtn">Post</button>
+      </form>
+  </div>
+</div>
+<button id="newPostBtn" class="new-post-btn">New Post</button>
+
+
+  <!-- Bookmarks Pop-Up Modal -->
+<div id="bookmarksModal" class="modal">
+  <div class="modal-content">
+      <span id="closeBookmarksModal" class="close">&times;</span>
+      <h2>Bookmarks</h2>
+      <p>Your bookmarked items will appear here.</p>
+      <!-- You can add a list of bookmarks or any other content here -->
+  </div>
+</div>
+
+<!-- Notifications Pop-Up Modal -->
+<div id="notificationsModal" class="modal">
+<div class="modal-content">
+  <span id="closeNotificationsModal" class="close">&times;</span>
+  <h2>Notifications</h2>
+  <p>Your notifications will appear here.</p>
+  <!-- You can add a list of notifications or any other content here -->
+</div>
+</div>
+
 <!-- Include the modal.js file -->
 <script src="modal.js"></script>
 
@@ -68,7 +110,8 @@
   function goToAboutPage(imageUrl) {
       window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
   }
+  
 </script>
-
+<script src="index.js"></script>
 </body>
 </html>
