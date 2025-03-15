@@ -449,7 +449,7 @@ body {
 
 /* Modal Styles */
 .modal {
-    display: none; / Hidden by default /
+    display: none; 
     position: fixed;
     z-index: 1;
     left: 0;
@@ -523,4 +523,73 @@ form button:hover {
 
 #registrationFeedback.success {
     color: green;
+}
+
+/* Right Column Styles */
+.right-column {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sort-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+#contentList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#contentList li {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#contentList li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.vote-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.upvote-btn,
+.downvote-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.upvote-btn:hover {
+    color: green;
+    transform: translateY(-2px);
+}
+
+.downvote-btn:hover {
+    color: red;
+    transform: translateY(2px);
+}
+
+.vote-count {
+    font-size: 18px;
+    font-weight: bold;
 }

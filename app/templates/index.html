@@ -30,23 +30,88 @@
   
   <!-- Middle Column: Posts -->
   <div class="middle-column">
-    <!-- Example Post -->
-    <div class="card post">
-      <h4>Jane Doe</h4>
-      <!-- Add onclick event to the image -->
-      <img src="https://picsum.photos/100/100" alt="Logo" onclick="goToAboutPage(this.src)">
-      <p>Beautiful view from the mountains!</p>
+    <!-- Post 1 -->
+    <div class="card post" data-post-id="1">
+        <h4>Jane Doe</h4>
+        <img src="https://picsum.photos/100/100" alt="Logo" onclick="goToAboutPage(this.src)">
+        <p>Beautiful view from the mountains!</p>
+        <div class="vote-buttons">
+            <button class="upvote-btn">⬆</button>
+            <span class="vote-count">0</span>
+            <button class="downvote-btn">⬇</button>
+        </div>
     </div>
+
+    <!-- Post 2 -->
+    <div class="card post" data-post-id="2">
+        <h4>John Smith</h4>
+        <img src="https://picsum.photos/100/101" alt="Logo" onclick="goToAboutPage(this.src)">
+        <p>Exploring the city streets today. 🌆</p>
+        <div class="vote-buttons">
+            <button class="upvote-btn">⬆</button>
+            <span class="vote-count">0</span>
+            <button class="downvote-btn">⬇</button>
+        </div>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="card post" data-post-id="3">
+        <h4>Alice Johnson</h4>
+        <img src="https://picsum.photos/100/102" alt="Logo" onclick="goToAboutPage(this.src)">
+        <p>Sunset at the beach. 🌅</p>
+        <div class="vote-buttons">
+            <button class="upvote-btn">⬆</button>
+            <span class="vote-count">0</span>
+            <button class="downvote-btn">⬇</button>
+        </div>
+    </div>
+
+    <!-- Post 4 -->
+    <div class="card post" data-post-id="4">
+        <h4>Bob Brown</h4>
+        <img src="https://picsum.photos/100/103" alt="Logo" onclick="goToAboutPage(this.src)">
+        <p>Hiking through the forest. 🌲</p>
+        <div class="vote-buttons">
+            <button class="upvote-btn">⬆</button>
+            <span class="vote-count">0</span>
+            <button class="downvote-btn">⬇</button>
+        </div>
+    </div>
+
+    <!-- Post 5 -->
+    <div class="card post" data-post-id="5">
+        <h4>Emily Davis</h4>
+        <img src="https://picsum.photos/100/104" alt="Logo" onclick="goToAboutPage(this.src)">
+        <p>Morning coffee and a good book. ☕📚</p>
+        <div class="vote-buttons">
+            <button class="upvote-btn">⬆</button>
+            <span class="vote-count">0</span>
+            <button class="downvote-btn">⬇</button>
+        </div>
+    </div>
+</div>
+  
+  
+  
+  <!-- Right Column: Sorting and Events -->
+<div class="right-column">
+  <div class="card">
+      <h3>Sort By</h3>
+      <!-- Dropdown for sorting options -->
+      <select id="sortOptions" class="sort-dropdown">
+          <option value="new">New</option>
+          <option value="popular">Popular</option>
+          <option value="forYou">For You</option>
+          <option value="date">Date</option>
+      </select>
   </div>
-  
-  
-  
-  <!-- Right Column: Events -->
-  <div class="right-column">
-    <div class="card">
-      <h3>Upcoming Events</h3>
-      <p>Friday: Hiking Trip</p>
-    </div>
+
+  <!-- Display sorted content here -->
+  <div id="sortedContent" class="card">
+      <h3>Sorted Content</h3>
+      <ul id="contentList">
+          <!-- Content will be dynamically added here -->
+      </ul>
   </div>
 </div>
 
@@ -427,6 +492,59 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         openLoginModal();
     }, 2000);
 });  
+
+// Sample data for demonstration
+const sampleContent = [
+    { id: 1, title: "Post 1", likes: 10, date: "2023-10-01", forYou: false },
+    { id: 2, title: "Post 2", likes: 25, date: "2023-10-05", forYou: true },
+    { id: 3, title: "Post 3", likes: 5, date: "2023-09-28", forYou: false },
+    { id: 4, title: "Post 4", likes: 50, date: "2023-10-10", forYou: true },
+];
+
+// Function to render content based on sorting
+function renderContent(sortBy) {
+    const contentList = document.getElementById("contentList");
+    contentList.innerHTML = ""; // Clear existing content
+
+    let sortedContent = [...sampleContent];
+
+    switch (sortBy) {
+        case "new":
+            sortedContent.sort((a, b) => new Date(b.date) - new Date(a.date));
+            break;
+        case "popular":
+            sortedContent.sort((a, b) => b.likes - a.likes);
+            break;
+        case "forYou":
+            sortedContent = sortedContent.filter((item) => item.forYou);
+            break;
+        case "date":
+            sortedContent.sort((a, b) => new Date(a.date) - new Date(b.date));
+            break;
+        default:
+            break;
+    }
+
+    // Render sorted content
+    sortedContent.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <strong>${item.title}</strong>
+            <p>Likes: ${item.likes} | Date: ${item.date}</p>
+        `;
+        contentList.appendChild(li);
+    });
+}
+
+// Event listener for sorting dropdown
+document.getElementById("sortOptions").addEventListener("change", (event) => {
+    const sortBy = event.target.value;
+    renderContent(sortBy);
+});
+
+// Initial render (default: "New")
+renderContent("new");
+
 </script>
 
 <script src="../static/index.js"></script>
