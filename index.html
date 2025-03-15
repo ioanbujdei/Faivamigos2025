@@ -8,51 +8,56 @@
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-
-    <!-- Navbar -->
-    <div class="navbar">My Social Media</div>
-
-    <div class="container">
-        <!-- Left Column: Fixed Menu -->
-        <div class="left-column">
-            <!-- Logo -->
-            <div class="logo">
-                <img src="logo.png" alt="Logo">
-            </div>
-            <!-- Menu -->
-            <div class="menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="notifications.html">Notifications</a></li>
-                    <li><a href="bookmarks.html">Bookmarks</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Middle Column: Posts -->
-        <div class="middle-column">
-            <div class="card">
-                <textarea style="width:100%; height:50px;" placeholder="What's on your mind?"></textarea>
-                <button class="btn">Post</button>
-            </div>
-            <div class="card post">
-                <h4>Jane Doe</h4>
-                <img src="https://picsum.photos/100/100" alt="Logo">
-                <p>Beautiful view from the mountains!</p>
-                <button class="btn">Like</button>
-                <button class="btn">Comment</button>
-            </div>
-        </div>
-        
-        <!-- Right Column: Events -->
-        <div class="right-column">
-            <div class="card">
-                <h3>Upcoming Events</h3>
-                <p>Friday: Hiking Trip</p>
-            </div>
-        </div>
+  
+<div class="container">
+  <!-- Left Column: Fixed Menu -->
+  <div class="left-column">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
     </div>
+    <!-- Menu -->
+    <div class="menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="bookmarks.html">Bookmarks</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Middle Column: Posts -->
+  <div class="middle-column">
+    <div class="card">
+      <textarea style="width:100%; height:50px;" placeholder="What's on your mind?"></textarea>
+      <button class="btn">Post</button>
+    </div>
+    <div class="card post">
+      <h4>Jane Doe</h4>
+      <!-- Add onclick event to the image -->
+      <img src="https://picsum.photos/100/100" alt="Logo" onclick="goToAboutPage(this.src)">
+      <p>Beautiful view from the mountains!</p>
+      <button class="btn">Like</button>
+      <button class="btn">Comment</button>
+    </div>
+  </div>
+  
+  <!-- Right Column: Events -->
+  <div class="right-column">
+    <div class="card">
+      <h3>Upcoming Events</h3>
+      <p>Friday: Hiking Trip</p>
+    </div>
+  </div>
+</div>
+
+<script>
+    // Function to redirect to about.html with the image URL as a query parameter
+    function goToAboutPage(imageUrl) {
+        window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
+    }
+</script>
 
 </body>
 </html>

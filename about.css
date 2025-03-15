@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #287cb5;
+    background-color: #f6f7f3; /* Change to a light gray or white */
     color: #333;
     margin: 0;
     padding: 0;
@@ -22,7 +22,7 @@ body {
     padding: 20px;
     display: flex;
     gap: 20px;
-    background-color: #f6f7f3;
+    background-color: #f6f7f3; /* Match the body background */
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     animation: fadeIn 1s ease-in-out;
