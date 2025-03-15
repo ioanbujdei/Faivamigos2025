@@ -23,6 +23,7 @@
         <li><a href="notifications.html">Notifications</a></li>
         <li><a href="bookmarks.html">Bookmarks</a></li>
         <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
+        <li><button id="loginBtn" class="login-btn">Login</button></li> <!-- Add Login Button -->
       </ul>
     </div>
   </div>
@@ -46,6 +47,51 @@
       <h3>Upcoming Events</h3>
       <p>Friday: Hiking Trip</p>
     </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeLoginModal()">&times;</span>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password" required>
+
+      <button type="submit">Login</button>
+    </form>
+    <!-- Feedback message for login validation -->
+    <div id="loginFeedback" style="margin-top: 10px; color: red;"></div>
+    <p>No account? <a href="javascript:void(0)" onclick="openRegistrationModal()">Register here</a></p>
+  </div>
+</div>
+
+<!-- Registration Modal -->
+<div id="registrationModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeRegistrationModal()">&times;</span>
+    <h2>Register</h2>
+    <form id="registrationForm">
+      <label for="regUsername">Username</label>
+      <input type="text" id="regUsername" placeholder="Enter username" required>
+
+      <label for="regEmail">Email</label>
+      <input type="email" id="regEmail" placeholder="Enter email" required>
+
+      <label for="regPassword">Password</label>
+      <input type="password" id="regPassword" placeholder="Enter password" required>
+
+      <label for="regConfirmPassword">Confirm Password</label>
+      <input type="password" id="regConfirmPassword" placeholder="Confirm password" required>
+
+      <button type="submit">Register</button>
+    </form>
+    <!-- Feedback message for validation -->
+    <div id="registrationFeedback" style="margin-top: 10px; color: red;"></div>
   </div>
 </div>
 
@@ -112,7 +158,275 @@
   function goToAboutPage(imageUrl) {
       window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
   }
-  
+// Function to open the login modal
+function openLoginModal() {
+      document.getElementById('loginModal').style.display = 'flex';
+  }
+
+  // Function to close the login modal
+  function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+  }
+
+  // Function to open the registration modal
+  function openRegistrationModal() {
+      closeLoginModal(); // Close the login modal
+      document.getElementById('registrationModal').style.display = 'flex';
+  }
+
+  // Function to close the registration modal
+  function closeRegistrationModal() {
+      document.getElementById('registrationModal').style.display = 'none';
+  }
+
+  // Attach event listener to the login button
+  document.getElementById('loginBtn').addEventListener('click', openLoginModal);
+
+  // Handle login form submission
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Add your login logic here
+      alert('Login functionality to be implemented.');
+  });
+
+  // Handle registration form submission
+  document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get form values
+      const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+      const confirmPassword = document.getElementById('regConfirmPassword').value.trim();
+
+      // Validation
+      if (!username || !email || !password || !confirmPassword) {
+          alert('All fields are required.');
+          return;
+      }
+
+      if (password !== confirmPassword) {
+          alert('Passwords do not match.');
+          return;
+      }
+
+      if (password.length < 6) {
+          alert('Password must be at least 6 characters long.');
+          return;
+      }
+
+      // Simulate successful registration
+      alert('Registration successful! Redirecting to login...');
+
+      // Close the registration modal
+      closeRegistrationModal();
+
+      // Open the login modal
+      openLoginModal();
+  });
+
+  // Close modals when clicking outside the modal content
+  window.addEventListener('click', function(event) {
+      if (event.target === document.getElementById('loginModal')) {
+          closeLoginModal();
+      }
+      if (event.target === document.getElementById('registrationModal')) {
+          closeRegistrationModal();
+      }
+  });
+  // Handle registration form submission
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const username = document.getElementById('regUsername').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const confirmPassword = document.getElementById('regConfirmPassword').value.trim();
+
+    // Clear previous feedback
+    const feedback = document.getElementById('registrationFeedback');
+    feedback.textContent = '';
+
+    // Validation
+    if (!username || !email || !password || !confirmPassword) {
+        feedback.textContent = 'All fields are required.';
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        feedback.textContent = 'Passwords do not match.';
+        return;
+    }
+
+    if (password.length < 6) {
+        feedback.textContent = 'Password must be at least 6 characters long.';
+        return;
+    }
+
+    // Simulate successful registration
+    feedback.textContent = 'Registration successful! Redirecting to login...';
+    feedback.style.color = 'green';
+
+    // Close the registration modal after 2 seconds
+    setTimeout(() => {
+        closeRegistrationModal();
+        openLoginModal();
+    }, 2000);
+});
+// Handle login form submission
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Clear previous feedback
+    const feedback = document.getElementById('loginFeedback');
+    feedback.textContent = '';
+
+    // Validation
+    if (!username || !password) {
+        feedback.textContent = 'Username and password are required.';
+        return;
+    }
+
+    if (password.length < 6) {
+        feedback.textContent = 'Password must be at least 6 characters long.';
+        return;
+    }
+
+    // Simulate successful login
+    feedback.textContent = 'Login successful!';
+    feedback.style.color = 'green';
+
+    // Close the login modal after 2 seconds
+    setTimeout(() => {
+        closeLoginModal();
+    }, 2000);
+});
+// Store registered users in localStorage
+let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+// Function to open the login modal
+function openLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+}
+
+// Function to close the login modal
+function closeLoginModal() {
+    document.getElementById('loginModal').style.display = 'none';
+}
+
+// Function to open the registration modal
+function openRegistrationModal() {
+    closeLoginModal(); // Close the login modal
+    document.getElementById('registrationModal').style.display = 'flex';
+}
+
+// Function to close the registration modal
+function closeRegistrationModal() {
+    document.getElementById('registrationModal').style.display = 'none';
+}
+
+// Attach event listener to the login button
+document.getElementById('loginBtn').addEventListener('click', openLoginModal);
+
+// Handle login form submission
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Clear previous feedback
+    const feedback = document.getElementById('loginFeedback');
+    feedback.textContent = '';
+
+    // Validation
+    if (!username || !password) {
+        feedback.textContent = 'Username and password are required.';
+        return;
+    }
+
+    if (password.length < 6) {
+        feedback.textContent = 'Password must be at least 6 characters long.';
+        return;
+    }
+
+    // Check if the user is registered
+    const user = registeredUsers.find(user => user.username === username && user.password === password);
+
+    if (user) {
+        // Successful login
+        feedback.textContent = 'Login successful!';
+        feedback.style.color = 'green';
+
+        // Close the login modal after 2 seconds
+        setTimeout(() => {
+            closeLoginModal();
+        }, 2000);
+    } else {
+        // Failed login
+        feedback.textContent = 'Invalid username or password. Please register first.';
+        feedback.style.color = 'red';
+    }
+});
+
+// Handle registration form submission
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const username = document.getElementById('regUsername').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const confirmPassword = document.getElementById('regConfirmPassword').value.trim();
+
+    // Clear previous feedback
+    const feedback = document.getElementById('registrationFeedback');
+    feedback.textContent = '';
+
+    // Validation
+    if (!username || !email || !password || !confirmPassword) {
+        feedback.textContent = 'All fields are required.';
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        feedback.textContent = 'Passwords do not match.';
+        return;
+    }
+
+    if (password.length < 6) {
+        feedback.textContent = 'Password must be at least 6 characters long.';
+        return;
+    }
+
+    // Check if the username is already registered
+    const userExists = registeredUsers.some(user => user.username === username);
+
+    if (userExists) {
+        feedback.textContent = 'Username already exists. Please choose a different username.';
+        return;
+    }
+
+    // Add the new user to registeredUsers
+    registeredUsers.push({ username, email, password });
+    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+    // Simulate successful registration
+    feedback.textContent = 'Registration successful! Redirecting to login...';
+    feedback.style.color = 'green';
+
+    // Close the registration modal after 2 seconds
+    setTimeout(() => {
+        closeRegistrationModal();
+        openLoginModal();
+    }, 2000);
+});  
 </script>
 
 <script src="../static/index.js"></script>
