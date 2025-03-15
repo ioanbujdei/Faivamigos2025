@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .navbar {
     background-color: #0077cc;
     overflow: hidden;
@@ -13,58 +14,14 @@ body {
     color: white;
     text-align: center;
     font-size: 20px;
-  }
-  .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-    display: flex;
-  }
-  .left-column, .middle-column, .right-column {
-    padding: 10px;
-  }
-  .left-column, .right-column {
-    width: 25%;
-  }
-  .middle-column {
-    width: 50%;
-  }
-  .card {
-    background-color: white;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
-  }
-  .profile img {
-    width: 100px;
-    border-radius: 50%;
-    display: block;
-    margin: auto;
-  }
-  .post img {
-    width: 100%;
-    border-radius: 5px;
-  }
-  .btn {
-    padding: 8px 12px;
-    margin-top: 10px;
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-  }
-  .btn:hover {
-    background-color: #005fa3;
-  }
+}
 
 .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
     display: flex;
     gap: 20px;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
     background-color: #f6f7f3;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -80,6 +37,14 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.left-column {
+    width: 25%;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .main-content {
@@ -119,6 +84,52 @@ a {
 a:hover {
     color: #005fa3;
     text-decoration: underline;
+}
+
+/* Logo Styles */
+.logo {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 80px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu Styles */
+.menu {
+    margin-top: 20px;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu ul li {
+    margin-bottom: 15px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu ul li a:hover {
+    background-color: #0077cc;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Vote Container */
@@ -259,41 +270,6 @@ a:hover {
 }
 
 /* Popular Projects */
-.popular-project {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
-}
-
-.popular-project:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-}
-
-.popular-project h3 {
-    margin-top: 0;
-    color: #2c3e50;
-}
-
-.project-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.project-content img {
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.project-content img:hover {
-    transform: scale(1.05);
-}
-/* Add this to your existing CSS */
 .popular-project {
     margin-bottom: 20px;
     padding: 15px;
