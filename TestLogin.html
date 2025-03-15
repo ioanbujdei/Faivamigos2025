@@ -74,8 +74,8 @@
         <div class="form-container" id="loginFormContainer">
             <h2>Login</h2>
             <form id="loginForm">
-                <label for="loginUsername">Username:</label>
-                <input type="text" id="loginUsername" class="input-field" required>
+                <label for="loginUsernameOrEmail">Username or Email:</label>
+                <input type="text" id="loginUsernameOrEmail" class="input-field" required>
                 
                 <label for="loginPassword">Password:</label>
                 <input type="password" id="loginPassword" class="input-field" required>
@@ -86,11 +86,15 @@
             <a href="javascript:void(0)" class="link" onclick="toggleForm('register')">No Account?</a>
         </div>
 
+        <!-- Registration Form -->
         <div class="form-container" id="registerFormContainer" style="display: none;">
             <h2>Register</h2>
             <form id="registerForm">
                 <label for="registerUsername">Username:</label>
                 <input type="text" id="registerUsername" class="input-field" required>
+                
+                <label for="registerEmail">Email:</label>
+                <input type="email" id="registerEmail" class="input-field" required>
                 
                 <label for="registerPassword">Password:</label>
                 <input type="password" id="registerPassword" class="input-field" required>
@@ -106,7 +110,7 @@
     </div>
 
     <script>
-        let users = []; 
+        let users = []; // Stores users as an array of objects
 
         function toggleForm(formType) {
             if (formType === 'register') {
@@ -119,10 +123,12 @@
         }
 
         function login() {
-            const username = document.getElementById('loginUsername').value;
+            const usernameOrEmail = document.getElementById('loginUsernameOrEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            const user = users.find(u => u.username === username && u.password === password);
+            const user = users.find(u => 
+                (u.username === usernameOrEmail || u.email === usernameOrEmail) && u.password === password
+            );
 
             if (user) {
                 document.getElementById('loginMessage').textContent = "Login successful!";
@@ -140,15 +146,26 @@
 
         function register() {
             const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (users.some(u => u.username === username)) {
-                document.getElementById('registerMessage').textContent = "Username already taken!";
+            // Email format validation
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('registerMessage').textContent = "Please enter a valid email address!";
                 document.getElementById('registerMessage').style.color = "red";
                 return;
             }
 
+            // Check if username or email already exists
+            if (users.some(u => u.username === username || u.email === email)) {
+                document.getElementById('registerMessage').textContent = "Username or email already taken!";
+                document.getElementById('registerMessage').style.color = "red";
+                return;
+            }
+
+            // Check if passwords match
             if (password !== confirmPassword) {
                 document.getElementById('registerMessage').textContent = "Passwords do not match!";
                 document.getElementById('registerMessage').style.color = "red";
@@ -156,7 +173,7 @@
             }
 
             // Add user to users array (you can save it to a server in real applications)
-            users.push({ username, password });
+            users.push({ username, email, password });
 
             document.getElementById('registerMessage').textContent = "Registration successful! You can now log in.";
             document.getElementById('registerMessage').style.color = "green";
