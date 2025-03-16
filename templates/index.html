@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom Social Media Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+
+<div class="container">
+  <!-- Left Column: Fixed Menu -->
+  <div class="left-column">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+    </div>
+    <!-- Menu -->
+    <div class="menu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="javascript:void(0)" onclick="openNotificationsModal()">Notifications</a></li>
+        <li><a href="javascript:void(0)" onclick="openBookmarksModal()">Bookmarks</a></li>
+        <li><a href="javascript:void(0)" onclick="openProfileModal()">Profile</a></li>
+        <li>
+          <button id="loginBtn" class="login-btn">
+            {% if logged_in %}Logout{% else %}Login{% endif %}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Middle Column: Posts -->
+  <div class="middle-column">
+    {% for project in projects %}
+    <div class="card post" data-post-id="{{ loop.index }}">
+      <h4>{{ project.title }}</h4>
+      <img src="{{ project.image_path }}" alt="Project Image" onclick="goToAboutPage(this.src)">
+      <p>{{ project.description }}</p>
+      <div class="vote-buttons">
+        <button class="upvote-btn">⬆</button>
+        <span class="vote-count">0</span>
+        <button class="downvote-btn">⬇</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Right Column: Sorting and Events -->
+  <div class="right-column">
+    <div class="card">
+      <h3>Sort By</h3>
+      <!-- Dropdown for sorting options -->
+      <select id="sortOptions" class="sort-dropdown">
+        <option value="new">New</option>
+        <option value="popular">Popular</option>
+        <option value="forYou">For You</option>
+        <option value="date">Date</option>
+      </select>
+    </div>
+
+    <!-- Display sorted content here -->
+    <div id="sortedContent" class="card">
+      <h3>Sorted Content</h3>
+      <ul id="contentList">
+        <!-- Content will be dynamically added here -->
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeLoginModal()">&times;</span>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+      <button type="submit">Login</button>
+    </form>
+    <div id="loginFeedback" style="margin-top: 10px; color: red;"></div>
+    <p>No account? <a href="javascript:void(0)" onclick="openRegistrationModal()">Register here</a></p>
+  </div>
+</div>
+
+<!-- Registration Modal -->
+<div id="registrationModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeRegistrationModal()">&times;</span>
+    <h2>Register</h2>
+    <form id="registrationForm">
+      <label for="regUsername">Username</label>
+      <input type="text" id="regUsername" placeholder="Enter username" required>
+
+      <label for="regEmail">Email</label>
+      <input type="email" id="regEmail" placeholder="Enter email" required>
+
+      <label for="regPassword">Password</label>
+      <input type="password" id="regPassword" placeholder="Enter password" required>
+
+      <label for="regConfirmPassword">Confirm Password</label>
+      <input type="password" id="regConfirmPassword" placeholder="Confirm password" required>
+
+      <button type="submit">Register</button>
+    </form>
+    <div id="registrationFeedback" style="margin-top: 10px; color: red;"></div>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeProfileModal()">&times;</span>
+    <h2>Profile</h2>
+    <div class="profile-info">
+      <p><strong>Username:</strong> JaneDoe</p>
+      <p><strong>Email:</strong> jane.doe@example.com</p>
+      <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+</div>
+
+<!-- New Post Modal -->
+<div id="newPostModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeNewPostModal()">&times;</span>
+    <h2>Create New Post</h2>
+    <form id="newPostForm" enctype="multipart/form-data">
+      <label for="postTitle">Title</label>
+      <input type="text" id="postTitle" name="title" placeholder="Enter title" required>
+
+      <label for="postDescription">Description</label>
+      <textarea id="postDescription" name="description" placeholder="Enter description" required></textarea>
+
+      <label for="postImage">Upload Image</label>
+      <input type="file" id="postImage" name="image" accept="image/*" required>
+
+      <button type="submit">Post</button>
+    </form>
+    <div id="newPostFeedback" style="margin-top: 10px; color: red;"></div>
+  </div>
+</div>
+<button id="newPostBtn" class="new-post-btn">New Post</button>
+
+<!-- Include the modal.js file -->
+<script src="{{ url_for('static', filename='modal.js') }}"></script>
+
+<script>
+  // Function to redirect to about.html with the image URL as a query parameter
+  function goToAboutPage(imageUrl) {
+    window.location.href = `about.html?image=${encodeURIComponent(imageUrl)}`;
+  }
+
+  // Function to open the login modal
+  function openLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+  }
+
+  // Function to close the login modal
+  function closeLoginModal() {
+    document.getElementById('loginModal').style.display = 'none';
+  }
+
+  // Function to open the registration modal
+  function openRegistrationModal() {
+    closeLoginModal(); // Close the login modal
+    document.getElementById('registrationModal').style.display = 'flex';
+  }
+
+  // Function to close the registration modal
+  function closeRegistrationModal() {
+    document.getElementById('registrationModal').style.display = 'none';
+  }
+
+  // Function to open the new post modal
+  function openNewPostModal() {
+    document.getElementById('newPostModal').style.display = 'flex';
+  }
+
+  // Function to close the new post modal
+  function closeNewPostModal() {
+    document.getElementById('newPostModal').style.display = 'none';
+  }
+
+  // Attach event listener to the login button
+  const loginBtn = document.getElementById('loginBtn');
+  if (loginBtn.textContent === 'Login') {
+    loginBtn.addEventListener('click', openLoginModal);
+  } else {
+    loginBtn.addEventListener('click', function () {
+      // Handle logout functionality
+      fetch('/logout', {
+        method: 'POST',
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Logout successful
+          loginBtn.textContent = 'Login';
+          loginBtn.onclick = openLoginModal;
+          window.location.reload(); // Refresh the page to update the UI
+        }
+      });
+    });
+  }
+
+  // Handle login form submission
+  document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Get form data
+    const formData = new FormData(this);
+
+    // Send AJAX request to the Flask backend
+    fetch('/login', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => response.json()) // Parse the JSON response
+    .then(data => {
+      const feedback = document.getElementById('loginFeedback');
+      if (data.success) {
+        // Login successful
+        feedback.textContent = data.message;
+        feedback.style.color = 'green';
+
+        // Update the login button to a logout button
+        const loginBtn = document.getElementById('loginBtn');
+        loginBtn.textContent = 'Logout';
+        loginBtn.onclick = function () {
+          // Handle logout functionality
+          fetch('/logout', {
+            method: 'POST',
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              // Logout successful
+              loginBtn.textContent = 'Login';
+              loginBtn.onclick = openLoginModal;
+              window.location.reload(); // Refresh the page to update the UI
+            }
+          });
+        };
+
+        // Close the login modal after a delay
+        setTimeout(() => {
+          closeLoginModal();
+        }, 2000);
+      } else {
+        // Login failed
+        feedback.textContent = data.message;
+        feedback.style.color = 'red';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('loginFeedback').textContent = 'An error occurred. Please try again.';
+      document.getElementById('loginFeedback').style.color = 'red';
+    });
+  });
+
+  // Handle registration form submission
+  document.getElementById('registrationForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // Get form values
+    const username = document.getElementById('regUsername').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const confirmPassword = document.getElementById('regConfirmPassword').value.trim();
+
+    // Clear previous feedback
+    const feedback = document.getElementById('registrationFeedback');
+    feedback.textContent = '';
+
+    // Validation
+    if (!username || !email || !password || !confirmPassword) {
+      feedback.textContent = 'All fields are required.';
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      feedback.textContent = 'Passwords do not match.';
+      return;
+    }
+
+    if (password.length < 6) {
+      feedback.textContent = 'Password must be at least 6 characters long.';
+      return;
+    }
+
+    // Simulate successful registration
+    feedback.textContent = 'Registration successful! Redirecting to login...';
+    feedback.style.color = 'green';
+
+    // Close the registration modal after 2 seconds
+    setTimeout(() => {
+      closeRegistrationModal();
+      openLoginModal();
+    }, 2000);
+  });
+
+  // Handle new post form submission
+  document.getElementById('newPostForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Get form data
+    const formData = new FormData(this);
+
+    // Send AJAX request to the Flask backend
+    fetch('/add_project', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => response.json()) // Parse the JSON response
+    .then(data => {
+      const feedback = document.getElementById('newPostFeedback');
+      if (data.success) {
+        // Project added successfully
+        feedback.textContent = data.message;
+        feedback.style.color = 'green';
+
+        // Close the modal after a delay
+        setTimeout(() => {
+          closeNewPostModal();
+          window.location.reload(); // Refresh the page to show the new project
+        }, 2000);
+      } else {
+        // Error adding project
+        feedback.textContent = data.message;
+        feedback.style.color = 'red';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('newPostFeedback').textContent = 'An error occurred. Please try again.';
+      document.getElementById('newPostFeedback').style.color = 'red';
+    });
+  });
+
+  // Attach event listener to the "New Post" button
+  document.getElementById('newPostBtn').addEventListener('click', openNewPostModal);
+</script>
+
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
