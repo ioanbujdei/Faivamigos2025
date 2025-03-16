@@ -40,6 +40,7 @@ function handleVote(type) {
 document.addEventListener("DOMContentLoaded", function () {
     updateVoteCount();
     initializeProjects();
+    displayComments(); // Display comments on page load
 
     // Attach event listeners
     document.getElementById("upvoteBtn").addEventListener("click", () => handleVote('up'));
@@ -175,6 +176,18 @@ function displayComments() {
     let commentList = document.getElementById("commentList");
     commentList.innerHTML = ""; // Clear the current comment list
     let comments = JSON.parse(localStorage.getItem("comments")) || [];
+
+    // Add some initial Lorem Ipsum comments if there are no comments
+    if (comments.length === 0) {
+        comments = [
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+            "Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+            "Donec eu libero sit amet quam egestas semper.",
+            "Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+        ];
+        localStorage.setItem("comments", JSON.stringify(comments));
+    }
 
     // Create a div for each comment
     comments.forEach((comment, index) => {
