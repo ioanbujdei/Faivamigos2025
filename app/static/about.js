@@ -1,5 +1,5 @@
 // Suggestion Page Voting Logic
-let voteCount = localStorage.getItem("voteCount") ? parseInt(localStorage.getItem("voteCount")) : 0;
+let voteCount = localStorage.getItem("voteCount") ? parseInt(localStorage.getItem("voteCount")) : 345;
 let currentVote = localStorage.getItem("currentVote") || null; // 'up', 'down', or null
 
 function updateVoteCount() {

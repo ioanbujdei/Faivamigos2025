@@ -42,20 +42,20 @@
   <div class="middle-column">
     <!-- Post 1 -->
     <div class="card post" data-post-id="1">
-        <span class="post-username">@jane_doe</span> <!-- Add username here -->
+        <span class="post-username">@ana.maria</span> <!-- Add username here -->
         <h4>Parcul Lunei.</h4>
         <img src="https://media.discordapp.net/attachments/1350152621536575593/1350800805409853460/Parc_Lunei-2.png?ex=67d80ec8&is=67d6bd48&hm=f030ab95ff095e1184a04ccf251322590106971377842afee7516ca1fa25ca73&=&format=webp&quality=lossless&width=1240&height=930" alt="Logo" onclick="goToAboutPage(this.src)">
         <p>Asfaltarea parcului in zona in care se afla pietris.</p>
         <div class="vote-buttons">
             <button class="upvote-btn">⬆</button>
-            <span class="vote-count">345</span>
+            <span class="vote-count">12</span>
             <button class="downvote-btn">⬇</button>
         </div>
     </div>
 
     <!-- Post 2 -->
     <div class="card post" data-post-id="2">
-        <span class="post-username">@john_smith</span> <!-- Add username here -->
+        <span class="post-username">@ioan.david</span> <!-- Add username here -->
         <h4>Parcul Regina Maria.</h4>
         <img src="https://cdn.discordapp.com/attachments/1350152621536575593/1350800927195402362/b4bf5f21-4974-4948-8343-f10f1957ce51.png?ex=67d80ee5&is=67d6bd65&hm=870dee03c5395ccd517234718c433ef2547c62f171d6f26f6fdc3b79ea884323&" alt="Logo" onclick="goToAboutPage(this.src)">
         <p>In parc se afla prea putine banci. 🌆</p>
@@ -68,6 +68,7 @@
 
     <!-- Post 3 -->
     <div class="card post" data-post-id="3">
+        <span class="post-username">@mihai.daniel</span> <!-- Add username here -->
         <h4>Parcul Botanic.</h4>
         <img src="https://cdn.discordapp.com/attachments/1350152621536575593/1350801066320724070/index.png?ex=67d80f06&is=67d6bd86&hm=1a987d5b569ba2b5b4ea1f01fb1326f7c45fd7702b66dfd90de7abb029329b69&" alt="Logo" onclick="goToAboutPage(this.src)">
         <p>Dorim pista de biciclisti!! 🌅</p>
@@ -80,6 +81,7 @@
 
     <!-- Post 4 -->
     <div class="card post" data-post-id="4">
+        <span class="post-username">@alin.andrei</span> <!-- Add username here -->
         <h4>Strada Iuliu Maniu</h4>
         <img src="https://cdn.discordapp.com/attachments/1350152621536575593/1350801428385366027/strada-Aries-2.png?ex=67d80f5d&is=67d6bddd&hm=3d0686070c60a436936b12f3d7b7e12c5cb7ebe1878013d15a96dd3c5af9fa57&" alt="Logo" onclick="goToAboutPage(this.src)">
         <p>Avem nevoie de trecere pentru pietnoi! </p>
@@ -92,6 +94,7 @@
 
     <!-- Post 5 -->
     <div class="card post" data-post-id="5">
+        <span class="post-username">@stefan.pop</span> <!-- Add username here -->
         <h4>Strada Victoriei.</h4>
         <img src="https://cdn.discordapp.com/attachments/1350152621536575593/1350802561778581545/image-2013-02-3-14146303-41-bulevardul-vasile-milea-intre-timisoara-drumul-taberei.png?ex=67d8106b&is=67d6beeb&hm=81cf3339149e10c4d1055053b32d2c6bb4b0f47837e7f4136a44f93d9871e2ac&" alt="Logo" onclick="goToAboutPage(this.src)">
         <p>Pe sosea este o groapa mult prea mare. Trebuie reparata!!!</p>
@@ -173,9 +176,9 @@
     <span class="close" onclick="closeProfileModal()">&times;</span>
     <h2>Profile</h2>
     <div class="profile-info">
-      <p><strong>Username:</strong> JaneDoe</p>
-      <p><strong>Email:</strong> jane.doe@example.com</p>
-      <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p><strong>Username:</strong> Vlad Raul</p>
+      <p><strong>Email:</strong> vlad.raul@gmail.com</p>
+      <p><strong>Bio:</strong> Un cetatean Timisorean dispus sa imbunatateasca orasul.</p>
     </div>
   </div>
 </div>
@@ -202,24 +205,65 @@
 <button id="newPostBtn" class="new-post-btn">New Post</button>
 
 
-  <!-- Bookmarks Pop-Up Modal -->
+<!-- Bookmarks Pop-Up Modal -->
 <div id="bookmarksModal" class="modal">
-  <div class="modal-content">
-      <span id="closeBookmarksModal" class="close">&times;</span>
-      <h2>Bookmarks</h2>
-      <p>Your bookmarked items will appear here.</p>
-      <!-- You can add a list of bookmarks or any other content here -->
-  </div>
+    <div class="modal-content">
+        <span id="closeBookmarksModal" class="close">&times;</span>
+        <h2>Bookmarks</h2>
+        <ul class="bookmarks-list">
+            <li class="bookmark-item">
+                <a href="#">Bookmark 1: Beautiful Mountain View</a>
+            </li>
+            <li class="bookmark-item">
+                <a href="#">Bookmark 2: Exploring the City Streets</a>
+            </li>
+            <li class="bookmark-item">
+                <a href="#">Bookmark 3: Sunset at the Beach</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <!-- Notifications Pop-Up Modal -->
 <div id="notificationsModal" class="modal">
-<div class="modal-content">
-  <span id="closeNotificationsModal" class="close">&times;</span>
-  <h2>Notifications</h2>
-  <p>Your notifications will appear here.</p>
-  <!-- You can add a list of notifications or any other content here -->
-</div>
+    <div class="modal-content">
+        <span id="closeNotificationsModal" class="close">&times;</span>
+        <h2>Notifications</h2>
+        <ul class="notifications-list">
+            <li class="notification-item">
+                <span class="notification-text">@simona.andreea upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">2 hours ago</span>
+            </li>
+            <li class="notification-item">
+                <span class="notification-text">@tudor.ana upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">3 hours ago</span>
+            </li>
+            <li class="notification-item">
+                <span class="notification-text">@Benjamin.emanuel upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">5 hours ago</span>
+            </li>
+            <li class="notification-item">
+                <span class="notification-text">@andrei.ioan upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">1 day ago</span>
+            </li>
+            <li class="notification-item">
+                <span class="notification-text">@ana.simona upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">1 day ago</span>
+            </li>
+            <li class="notification-item">
+                <span class="notification-text">@lamine.yamal upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">2 days ago</span>
+            </li>
+            <li class="notification-item">
+                <span class="notification-text">@raul.tudor upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">2 days ago</span>
+            </li>
+            <li class="notification-item">
+                <span class="notification-text">@pedri.gonzalez upvoted your post: "Parcul Mare"</span>
+                <span class="notification-time">3 days ago</span>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <!-- Include the modal.js file -->
